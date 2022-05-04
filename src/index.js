@@ -93,13 +93,7 @@ timeCreated: ${Math.round(Date.now() / 1000)}`;
     }
   }
 
-  fs.writeFile(`${file}.meta`, template, (err) => {
-    if (err) {
-      // eslint-disable-next-line no-console
-      throw err;
-    }
-    // file written successfully
-  });
+  fs.writeFileSync(`${file}.meta`, template);
   core.info(`Meta file generated for ${file}`);
 }
 
