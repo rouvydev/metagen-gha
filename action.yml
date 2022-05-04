@@ -7,8 +7,8 @@ inputs:
   seed:
     description: 'seed string, e.g. package name. defaults to cwd'
     required: false
-  files:
-    description: 'files to generate .meta files for. default: use package.json .files as input'
+  directory:
+    description: 'directory containing files that needs to have meta files generated'
     required: false
 outputs:
   metafiles:
