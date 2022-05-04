@@ -99,7 +99,7 @@ timeCreated: ${Math.round(Date.now() / 1000)}`;
 
 function processFile(file, xxh128) {
   core.info(`Processing ${file}...`);
-  if (fs.existsSync(file) && !file.endsWith('.meta') && fs.existsSync(`${file}.meta`)) {
+  if (fs.existsSync(file) && !file.endsWith('.meta') && !fs.existsSync(`${file}.meta`)) {
     xxh128.update(Buffer.from(file));
     const guid = xxh128.digest();
     xxh128.reset();
