@@ -129,6 +129,10 @@ function walkTree(directory) {
   const files = fs.readdirSync(directory);
   core.info(`Found ${files.length} files in ${directory}`);
   files.forEach((file) => {
+    if (file.startsWith('.')) {
+      core.info(`Skipping ${file}`);
+      return;
+    }
     const filePath = path.join(directory, file);
     const stats = fs.statSync(filePath);
     if (stats.isFile()) {

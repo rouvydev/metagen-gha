@@ -25,13 +25,13 @@ jobs:
         uses: ./ # Uses an action in the root directory
         with:
           seed: aaa.bbb.ccc
-          directory: ../
+          directory: ./
       - name: Print test 1
         run: cat package.json.meta
 
       - name: Test 2 -- no seed, single input
         uses: ./ # Uses an action in the root directory
         with:
-          directory: ../
+          directory: ./
       - name: Print test 2
         run: cat package.json.meta
