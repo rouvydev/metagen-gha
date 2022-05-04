@@ -15,4 +15,4 @@ outputs:
     description: 'list of generated metafiles'
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'action/index.js'
