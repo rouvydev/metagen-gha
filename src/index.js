@@ -12,6 +12,7 @@ function getXxh128(seed) {
 }
 
 function generateMetaFile(file, guid, isDirectory = false) {
+  core.info(`Generating meta file for ${file}...`);
   let template = `fileFormatVersion: 2
 guid: {${guid.toString('hex')}}`;
   if (isDirectory) {
@@ -99,9 +100,11 @@ timeCreated: ${Math.round(Date.now() / 1000)}`;
     }
     // file written successfully
   });
+  core.info(`Meta file generated for ${file}`);
 }
 
 function processFile(file, xxh128) {
+  core.info(`Processing ${file}...`);
   if (fs.existsSync(file) && !file.endsWith('.meta') && fs.existsSync(`${file}.meta`)) {
     xxh128.update(Buffer.from(file));
     const guid = xxh128.digest();
@@ -124,6 +127,7 @@ function walkTree(directory) {
   const xxh128 = getXxh128(initSeed);
 
   const files = fs.readdirSync(directory);
+  core.info(`Found ${files.length} files in ${directory}`);
   files.forEach((file) => {
     const filePath = path.join(directory, file);
     const stats = fs.statSync(filePath);
@@ -137,6 +141,7 @@ function walkTree(directory) {
 }
 
 function main() {
+  core.info(`Scanning ${core.getInput('directory')} directory...`);
   const directory = core.getInput('directory') || './';
   walkTree(directory);
 }
