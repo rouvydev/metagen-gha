@@ -1,0 +1,42 @@
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Build
+        run: |
+          yarn
+          yarn build
+
+      - name: Test 1 -- seed and single input
+        uses: ./ # Uses an action in the root directory
+        with:
+          seed: aaa.bbb.ccc
+          directory: ./
+      - name: Print test 1
+        run: cat package.json.meta
+
+      - name: Test 2 -- no seed, single input
+        uses: ./ # Uses an action in the root directory
+        with:
+          directory: ./
+      - name: Print test 2
+        run: cat package.json.meta
+
+      - name: Test 3 -- no seed, no input (use package.json.files for input)
+        uses: ./ # Uses an action in the root directory
+      - name: Print test 3
+        run: cat package.json.meta
