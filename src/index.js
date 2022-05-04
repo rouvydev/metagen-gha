@@ -95,7 +95,6 @@ timeCreated: ${Math.round(Date.now() / 1000)}`;
   fs.writeFile(`${file}.meta`, template, (err) => {
     if (err) {
       // eslint-disable-next-line no-console
-      console.error(err);
       throw err;
     }
     // file written successfully
@@ -124,28 +123,21 @@ function walkTree(directory) {
   const initSeed = core.getInput('seed') || name;
   const xxh128 = getXxh128(initSeed);
 
-  const files = fs.readSync(directory);
+  const files = fs.readdirSync(directory);
   files.forEach((file) => {
-    const filePath = directory + path.sep + file;
-    fs.stat(filePath, (err, stats) => {
-      if (err) {
-        return;
-      }
-
-      if (stats.isFile()) {
-        processFile(filePath, xxh128);
-      } else if (stats.isDirectory()) {
-        processDirectory(filePath);
-        walkTree(filePath);
-      }
-    });
+    const filePath = path.join(directory, file);
+    const stats = fs.statSync(filePath);
+    if (stats.isFile()) {
+      processFile(filePath, xxh128);
+    } else if (stats.isDirectory()) {
+      processDirectory(filePath, xxh128);
+      walkTree(filePath);
+    }
   });
 }
 
 function main() {
-  const directory = core.getInput('directory');
-  // eslint-disable-next-line no-console
-  console.log(`Processing ${directory}!`);
+  const directory = core.getInput('directory') || './';
   walkTree(directory);
 }
 
