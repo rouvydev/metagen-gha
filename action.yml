@@ -1,8 +1,8 @@
 name: 'Unity metafiles generator'
 description: 'Github action generating meta files for Unity using JS.'
 branding:
-    icon: 'anchor'
-    color: 'green'
+    icon: 'archive'
+    color: 'yellow'
 inputs:
   seed:
     description: 'seed string, e.g. package name. defaults to cwd'
