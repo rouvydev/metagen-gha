@@ -1,4 +1,4 @@
-name: 'Metagen GitHub Action'
+name: 'Unity metafiles generator'
 description: 'Github action generating meta files for Unity using JS.'
 branding:
     icon: 'anchor'
