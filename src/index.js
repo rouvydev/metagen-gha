@@ -14,7 +14,7 @@ function getXxh128(seed) {
 function generateMetaFile(file, guid, isDirectory = false) {
   core.info(`Generating meta file for ${file}...`);
   let template = `fileFormatVersion: 2
-guid: {${guid.toString('hex')}}`;
+guid: ${guid.toString('hex')}`;
   if (isDirectory) {
     template = `${template}
 folderAsset: yes
